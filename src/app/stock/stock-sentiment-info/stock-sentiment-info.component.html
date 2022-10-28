@@ -1,1 +1,75 @@
-<p>stock-sentiment-info works!</p>
+
+<div>
+    <h1>
+        {{stockName}} ({{stockSymbol}})
+    </h1>
+    
+    <table>
+        
+        <ng-template #loading>
+            <td class="data-cell">LOADING</td>
+        </ng-template>
+        <ng-template #noData>
+            <td rowspan="2" colspan="2" style="text-align: center; font-weight: bold;">NO DATA</td>
+        </ng-template>
+
+        <tr>
+            <th colspan="2">
+                {{currentMonth | date: 'MMMM'}} {{currentMonth | date: 'YYYY'}}
+            </th>
+            <td rowspan="3" [ngClass]="monthData[0].class">{{monthData[0].arrow}}</td>
+
+            <th colspan="2">
+                {{prevMonth | date: 'MMMM'}} {{currentMonth | date: 'YYYY'}}
+            </th>
+            <td rowspan="3" [ngClass]="monthData[1].class">{{monthData[1].arrow}}</td>
+
+            <th colspan="2">
+                {{lastMonth | date: 'MMMM'}} {{currentMonth | date: 'YYYY'}}
+            </th>
+            <td rowspan="3" [ngClass]="monthData[2].class">{{monthData[2].arrow}}</td>
+        </tr>
+        <tr>
+            <ng-container *ngIf="!monthData[0].noData else noData">
+                <td>Change:</td>
+                <td class="data-cell">
+                    {{monthData[0].change !== undefined && monthData[0].change > 0 ? "+" : ""}}{{monthData[0].change}}
+                </td>
+            </ng-container>
+    
+            <ng-container *ngIf="!monthData[1].noData else noData">
+                <td>Change:</td>
+                <td class="data-cell">
+                    {{monthData[1].change !== undefined && monthData[1].change > 0 ? "+" : ""}}{{monthData[1].change}}
+                </td>
+            </ng-container>
+            
+            <ng-container *ngIf="!monthData[2].noData else noData">
+                <td>Change:</td>
+                <td class="data-cell">
+                    {{monthData[2].change !== undefined && monthData[2].change > 0 ? "+" : ""}}{{monthData[2].change}}
+                </td>
+            </ng-container>
+        </tr>
+        <tr>
+            <ng-container *ngIf="!monthData[0].noData">
+                <td>MSPR:</td>
+                <td class="data-cell">{{monthData[0].mspr}}</td>
+            </ng-container>
+            
+            <ng-container *ngIf="!monthData[1].noData">
+                <td>MSPR:</td>
+                <td class="data-cell">{{monthData[1].mspr}}</td>
+            </ng-container>
+            
+            <ng-container *ngIf="!monthData[2].noData">
+                <td>MSPR:</td>
+                <td class="data-cell">{{monthData[2].mspr}}</td>
+            </ng-container>
+        </tr>
+    </table>
+
+    <br/>
+
+    <button id="backBtn" (click)="goBack()">Back to Stock List</button>
+</div>

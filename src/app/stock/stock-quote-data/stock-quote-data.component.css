@@ -1,0 +1,41 @@
+table {
+    width: 50%;
+    border: 1px;
+    border-color: black;
+    border-style: solid;
+    border-radius: 5px;
+}
+
+th {
+    height: 2em;
+    margin: 5px;
+}
+
+td {
+    height: 2em;
+    margin: 5px;
+    text-align: right;
+}
+
+.data-cell {
+    text-align: left;
+    font-weight: bold;
+}
+
+.trend-cell {
+    text-align: center;
+    width: 30%;
+    font-size: xx-large;
+}
+
+.positive-change {
+    color: green;
+}
+
+.negative-change {
+    color: red;
+}
+
+.na-change {
+    color: black;
+}

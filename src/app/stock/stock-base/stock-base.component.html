@@ -1,1 +1,13 @@
-<p>stock-base works!</p>
+<div class="stock-selector">
+    <app-stock-selector (newStockEvent)="newTracker($event)"></app-stock-selector>
+</div>
+
+<div class="stock-quotes">
+    <ng-container *ngFor="let stock of trackedStocks; index as i">
+        <app-stock-quote-data 
+        [stockSymbol]="stock"
+        (removeStockEvent)="removeTracker($event)">
+        </app-stock-quote-data>
+        <br/>
+    </ng-container>
+</div>

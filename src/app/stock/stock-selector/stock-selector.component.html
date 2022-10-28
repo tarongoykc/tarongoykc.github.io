@@ -1,1 +1,18 @@
-<p>stock-selector works!</p>
+<p>
+    Enter the symbol of the stock you wish to to track. (eg. AAPL, TSLA, GOOG) 
+</p>
+<input id="stockInput" type="text" #stockInput>
+<button id="trackBtn" (click)="trackStock(stockInput.value)" #trackBtn>
+    Track Stock
+</button>
+{{trackText}}
+
+
+<!--mat-form-field class="example-form-field" appearance="fill">
+    <mat-label>Clearable input</mat-label>
+    <input id="stockInput" matInput type="text">
+    <button *ngIf="stockSymbol" matSuffix mat-icon-button aria-label="Clear" click="stockSymbol=''">
+        <mat-icon>close</mat-icon>
+    </button>
+</mat-form-field-->
+

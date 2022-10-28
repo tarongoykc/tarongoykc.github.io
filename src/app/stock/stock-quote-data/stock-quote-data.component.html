@@ -1,1 +1,30 @@
-<p>stock-quote-data works!</p>
+<table>
+    <ng-template #loading>
+        <td class="data-cell">LOADING</td>
+    </ng-template>
+
+    <tr>
+        <th colspan="4">{{stockName}} ({{stockSymbol}})</th>
+        <td rowspan="3" [ngClass]="changeColor">{{changeArrow}}</td>
+        <td>
+            <button id="remove{{stockSymbol}}" (click)="removeStock()">X</button>
+        </td>
+    </tr>
+    <tr>
+        <td>Change Today:</td>
+        <td *ngIf="!loadingData else loading" class="data-cell">{{stockQuote.dp > 0 ? "+" : ""}}{{stockQuote.dp | number: '1.1-3'}}%</td>
+        <td>Opening Price:</td>
+        <td *ngIf="!loadingData else loading" class="data-cell">{{stockQuote.o | currency}}</td>
+    </tr>
+    <tr>
+        <td>Current Price:</td>
+        <td *ngIf="!loadingData else loading" class="data-cell">{{stockQuote.c | currency}}</td>
+        <td>High Price:</td>
+        <td *ngIf="!loadingData else loading" class="data-cell">{{stockQuote.h | currency}}</td>
+    </tr>
+    <tr>
+        <td colspan="5">
+            <button id="sentiment{{stockSymbol}}" (click)="openInsiderSentiment()">Get Insider Sentiment</button>
+        </td>
+    </tr>
+</table>
