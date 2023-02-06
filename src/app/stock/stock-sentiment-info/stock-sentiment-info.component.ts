@@ -116,23 +116,25 @@ export class StockSentimentInfoComponent implements OnInit, OnDestroy {
     this.currentMonth = new Date(date);
     this.monthData.push(new MonthSentiment(this.currentMonth.getMonth()));
     
-    if (date.getMonth() == 1) {
-      date.setMonth(12);
-      date.setFullYear(date.getFullYear() - 1);
-    }
-    else {
-      date.setMonth(date.getMonth() - 1);
-    }
+    // if (date.getMonth() == 1) {
+    //   date.setMonth(12);
+    //   date.setFullYear(date.getFullYear() - 1);
+    // }
+    // else {
+    //   date.setMonth(date.getMonth() - 1);
+    // }
+    date.setMonth(date.getMonth() - 1);
     this.prevMonth = new Date(date);
     this.monthData.push(new MonthSentiment(this.prevMonth.getMonth()));
 
-    if (date.getMonth() == 1) {
-      date.setMonth(12);
-      date.setFullYear(date.getFullYear() - 1);
-    }
-    else {
-      date.setMonth(date.getMonth() - 1);
-    }
+    // if (date.getMonth() == 1) {
+    //   date.setMonth(12);
+    //   date.setFullYear(date.getFullYear() - 1);
+    // }
+    // else {
+    //   date.setMonth(date.getMonth() - 1);
+    // }
+    date.setMonth(date.getMonth() - 1);
     this.lastMonth = new Date(date);
     this.monthData.push(new MonthSentiment(this.lastMonth.getMonth()));
 
