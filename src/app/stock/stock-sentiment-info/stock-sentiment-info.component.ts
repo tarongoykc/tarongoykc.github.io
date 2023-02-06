@@ -120,7 +120,9 @@ export class StockSentimentInfoComponent implements OnInit, OnDestroy {
       date.setMonth(12);
       date.setFullYear(date.getFullYear() - 1);
     }
-    date.setMonth(date.getMonth() - 1);
+    else {
+      date.setMonth(date.getMonth() - 1);
+    }
     this.prevMonth = new Date(date);
     this.monthData.push(new MonthSentiment(this.prevMonth.getMonth()));
 
@@ -128,7 +130,9 @@ export class StockSentimentInfoComponent implements OnInit, OnDestroy {
       date.setMonth(12);
       date.setFullYear(date.getFullYear() - 1);
     }
-    date.setMonth(date.getMonth() - 1);
+    else {
+      date.setMonth(date.getMonth() - 1);
+    }
     this.lastMonth = new Date(date);
     this.monthData.push(new MonthSentiment(this.lastMonth.getMonth()));
 
