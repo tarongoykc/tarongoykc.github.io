@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { FinnhubService } from 'src/app/services/finnhub.service';
 
 class MonthSentiment {
+  year!: number;
   month!: number;
   change?: number;
   mspr?: number;
@@ -11,8 +12,9 @@ class MonthSentiment {
   arrow: string = "N/A";
   noData: boolean = true;
 
-  constructor(month: number) {
+  constructor(month: number, year: number) {
     this.month = month;
+    this.year = year;
   }
 }
 
@@ -89,16 +91,13 @@ export class StockSentimentInfoComponent implements OnInit, OnDestroy {
       }));
   }
 
-  private getSentimentData(lowerDateBound: Date, upperDateBound: Date) {
-    this.subscriptions.push(this.finnhub.getInsiderSentiment(this.stockSymbol, lowerDateBound, upperDateBound)
+  private getSentimentData(month: Date) {
+    this.subscriptions.push(this.finnhub.getInsiderSentiment(this.stockSymbol, month, month)
       .subscribe({
         next: res => {
-          console.log(res);
           res.data.forEach(d => {
-            console.log(d);
             this.monthData.forEach((m: MonthSentiment) => {
-              console.log(m);
-              if (m.month === d.month) {
+              if (m.month === d.month && m.year === d.year) {
                 m.change = d.change;
                 m.mspr = d.mspr;
                 m.class = m.change == 0 ? "trend-cell na-change" : m.change > 0 ? "trend-cell positive-change" : "trend-cell negative-change";
@@ -117,31 +116,25 @@ export class StockSentimentInfoComponent implements OnInit, OnDestroy {
   private findMonths(date: Date): void {
     date.setDate(1);
     this.currentMonth = new Date(date);
-    this.monthData.push(new MonthSentiment(this.currentMonth.getMonth()));
+    this.monthData.push(new MonthSentiment(this.currentMonth.getMonth(), this.currentMonth.getFullYear()));
     
-    // if (date.getMonth() == 1) {
-    //   date.setMonth(12);
-    //   date.setFullYear(date.getFullYear() - 1);
-    // }
-    // else {
-    //   date.setMonth(date.getMonth() - 1);
-    // }
+    if (date.getMonth() == 1) {
+      date.setFullYear(date.getFullYear() - 1);
+    }
     date.setMonth(date.getMonth() - 1);
     this.prevMonth = new Date(date);
-    this.monthData.push(new MonthSentiment(this.prevMonth.getMonth()));
+    this.monthData.push(new MonthSentiment(this.prevMonth.getMonth(), this.currentMonth.getFullYear()));
 
-    // if (date.getMonth() == 1) {
-    //   date.setMonth(12);
-    //   date.setFullYear(date.getFullYear() - 1);
-    // }
-    // else {
-    //   date.setMonth(date.getMonth() - 1);
-    // }
+    if (date.getMonth() == 1) {
+      date.setFullYear(date.getFullYear() - 1);
+    }
     date.setMonth(date.getMonth() - 1);
     this.lastMonth = new Date(date);
-    this.monthData.push(new MonthSentiment(this.lastMonth.getMonth()));
+    this.monthData.push(new MonthSentiment(this.lastMonth.getMonth(), this.currentMonth.getFullYear()));
 
-    this.getSentimentData(this.lastMonth, new Date());
+    this.getSentimentData(this.currentMonth);
+    this.getSentimentData(this.prevMonth);
+    this.getSentimentData(this.lastMonth);
   }
 
 }
