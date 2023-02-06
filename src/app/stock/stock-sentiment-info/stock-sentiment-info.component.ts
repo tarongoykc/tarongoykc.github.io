@@ -132,6 +132,10 @@ export class StockSentimentInfoComponent implements OnInit, OnDestroy {
     this.lastMonth = new Date(date);
     this.monthData.push(new MonthSentiment(this.lastMonth.getMonth(), this.currentMonth.getFullYear()));
 
+    console.log(this.currentMonth);
+    console.log(this.prevMonth);
+    console.log(this.lastMonth);
+
     this.getSentimentData(this.currentMonth);
     this.getSentimentData(this.prevMonth);
     this.getSentimentData(this.lastMonth);
