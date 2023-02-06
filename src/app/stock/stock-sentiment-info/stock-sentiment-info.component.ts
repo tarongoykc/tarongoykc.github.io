@@ -93,8 +93,11 @@ export class StockSentimentInfoComponent implements OnInit, OnDestroy {
     this.subscriptions.push(this.finnhub.getInsiderSentiment(this.stockSymbol, lowerDateBound, upperDateBound)
       .subscribe({
         next: res => {
+          console.log(res);
           res.data.forEach(d => {
+            console.log(d);
             this.monthData.forEach((m: MonthSentiment) => {
+              console.log(m);
               if (m.month === d.month) {
                 m.change = d.change;
                 m.mspr = d.mspr;
