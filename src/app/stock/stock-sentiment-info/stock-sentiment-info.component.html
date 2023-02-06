@@ -20,12 +20,12 @@
             <td rowspan="3" [ngClass]="monthData[0].class">{{monthData[0].arrow}}</td>
 
             <th colspan="2">
-                {{prevMonth | date: 'MMMM'}} {{currentMonth | date: 'YYYY'}}
+                {{prevMonth | date: 'MMMM'}} {{prevMonth | date: 'YYYY'}}
             </th>
             <td rowspan="3" [ngClass]="monthData[1].class">{{monthData[1].arrow}}</td>
 
             <th colspan="2">
-                {{lastMonth | date: 'MMMM'}} {{currentMonth | date: 'YYYY'}}
+                {{lastMonth | date: 'MMMM'}} {{lastMonth | date: 'YYYY'}}
             </th>
             <td rowspan="3" [ngClass]="monthData[2].class">{{monthData[2].arrow}}</td>
         </tr>

@@ -92,12 +92,13 @@ export class StockSentimentInfoComponent implements OnInit, OnDestroy {
   }
 
   private getSentimentData(month: Date) {
+    console.log(month);
     this.subscriptions.push(this.finnhub.getInsiderSentiment(this.stockSymbol, month, month)
       .subscribe({
         next: res => {
           res.data.forEach(d => {
             this.monthData.forEach((m: MonthSentiment) => {
-              if (m.month === d.month && m.year === d.year) {
+              if (m.month + 1 === d.month && m.year === d.year) {
                 m.change = d.change;
                 m.mspr = d.mspr;
                 m.class = m.change == 0 ? "trend-cell na-change" : m.change > 0 ? "trend-cell positive-change" : "trend-cell negative-change";
@@ -118,23 +119,13 @@ export class StockSentimentInfoComponent implements OnInit, OnDestroy {
     this.currentMonth = new Date(date);
     this.monthData.push(new MonthSentiment(this.currentMonth.getMonth(), this.currentMonth.getFullYear()));
     
-    if (date.getMonth() == 1) {
-      date.setFullYear(date.getFullYear() - 1);
-    }
     date.setMonth(date.getMonth() - 1);
     this.prevMonth = new Date(date);
-    this.monthData.push(new MonthSentiment(this.prevMonth.getMonth(), this.currentMonth.getFullYear()));
+    this.monthData.push(new MonthSentiment(this.prevMonth.getMonth(), this.prevMonth.getFullYear()));
 
-    if (date.getMonth() == 1) {
-      date.setFullYear(date.getFullYear() - 1);
-    }
     date.setMonth(date.getMonth() - 1);
     this.lastMonth = new Date(date);
-    this.monthData.push(new MonthSentiment(this.lastMonth.getMonth(), this.currentMonth.getFullYear()));
-
-    console.log(this.currentMonth);
-    console.log(this.prevMonth);
-    console.log(this.lastMonth);
+    this.monthData.push(new MonthSentiment(this.lastMonth.getMonth(), this.lastMonth.getFullYear()));
 
     this.getSentimentData(this.currentMonth);
     this.getSentimentData(this.prevMonth);
